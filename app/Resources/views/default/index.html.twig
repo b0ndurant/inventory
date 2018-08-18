@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1 style="padding-top: 50px;text-align: center">Inventaire des stocks <span style="font-size:46px;background-color: #323333;color:#D6B963">MyPerfume</span></h1>
+    <div style="text-align: center"><img src="https://static.wixstatic.com/media/5bda3d_3b2244b91ac6413f8ab502c70ff41df8~mv2.png/v1/fill/w_166,h_143,al_c,q_80,usm_0.66_1.00_0.01/5bda3d_3b2244b91ac6413f8ab502c70ff41df8~mv2.webp"> </div>
+
+    <section id="bottle">
+        <div class="container">
+            <h3>
+                nombre de parfums en stock :{{ perfums|length }} <span style="float: right"><img src="http://www.maxicours.com/img/1/5/7/4/157415.jpg">Pour Ryad ;)</span>
+            </h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>30 ml</th>
+                    <th>50 ml</th>
+                    <th>100 ml</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for bottle in bottles %}
+                    <tr>
+                        {% if bottle.thirtyMl>50 %} <td>{{ bottle.thirtyMl }} </td>{% else %}<td class="blink blink-infinite" style="color: red;font-size: 35px;font-weight: bold">{{ bottle.thirtyMl }}</td>{% endif %}
+                        {% if bottle.fiftyMl>50 %} <td>{{ bottle.fiftyMl }} </td>{% else %}<td class="blink blink-infinite" style="color: red;font-size: 35px;font-weight: bold">{{ bottle.fiftyMl }}</td>{% endif %}
+                        {% if bottle.hundredMl>50 %} <td>{{ bottle.hundredMl }} </td>{% else %}<td class="blink blink-infinite" style="color: red;font-size: 35px;font-weight: bold">{{ bottle.hundredMl }}</td>{% endif %}
+                        <td><a href="{{ path('bottle_edit', { 'id': bottle.id }) }}">Modifier</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section id="perfum">
+        <div class="container">
+            <table id="table_id">
+                <thead>
+                <tr>
+                    <th>Nom du parfum</th>
+                    <th>Quantité</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for perfum in perfums %}
+                    <tr>
+                        <td><strong>{{ perfum.name }}</strong></td>
+                        <td><span class="quantity">{{ perfum.quantity }} ml</span></td>
+                        <td><a href="{{ path('perfum_edit', { 'id': perfum.id }) }}">Modifier</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable({
+                ordering: false,
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "Rechercher&nbsp;:",
+                    lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+        } );
+    </script>
+{% endblock %}

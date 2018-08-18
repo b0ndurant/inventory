@@ -1,0 +1,20 @@
+/*--------- NAVBAR ---------*/
+
+.navbar-brand {
+    padding: 0;
+}
+.navbar-right {
+    margin-right: 0;
+    font-size: 18px;
+}
+
+.navbar-header {
+    font-size: 30px;
+    padding-top: 4px;
+    padding-left: 10px;
+    text-decoration: none;
+}
+
+.navbar-header a {
+    color: #113A54;
+}

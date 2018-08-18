@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div style="padding-left: 30px;padding-top: 50px">
+        <h1>Ajout de parfum</h1>
+        {{ form_start(form) }}
+        <h4>Nom du parfum</h4>
+        {{ form_widget(form.name) }}
+        <h4>Quantité</h4>
+        <input type="number" name="quantity">
+        <div class="btn_create" style="padding-top: 10px; padding-bottom: 10px;">
+            <input type="submit" value="Créer" class="btn btn-primary" />
+        </div>
+        {{ form_end(form) }}
+
+        <a href="{{ path('perfum_index') }}">Retourner a la liste</a>
+    </div>
+
+{% endblock %}

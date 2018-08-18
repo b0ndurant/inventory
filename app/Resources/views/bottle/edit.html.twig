@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
+{% endblock %}
+
+{% block body %}
+    <section id="add_bottle" style="padding-top: 50px">
+        <h2 style="text-align: center">Ajouter stock flacon</h2>
+
+        {{ form_start(edit_form) }}
+        <table>
+            <thead>
+            <tr>
+                <th>30 ml</th>
+                <th>50 ml</th>
+                <th>100 ml</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><strong><input type="number" name="add30ml"></strong></td>
+                <td><input type="number" name="add50ml"></td>
+                <td><input type="number" name="add100ml"></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </section>
+    <section id="remove_bottle">
+        <h2 style="text-align: center">Retirer flacon du stock</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>30 ml</th>
+                <th>50 ml</th>
+                <th>100 ml</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><strong><input type="number" name="remove30ml"></strong></td>
+                <td><input type="number" name="remove50ml"></td>
+                <td><input type="number" name="remove100ml"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div style="text-align: center">
+            <input type="submit" value="Modifier" class="btn btn-primary" />
+        <div style="font-size: 15px">
+        <a href="{{ path('homepage') }}">Retouner a la liste</a>
+        </div>
+        {{ form_end(edit_form) }}
+
+        </div>
+    </section>
+    {% for message in app.flashes('erreur_bottle') %}
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p style="color: red"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
+{% block javascripts %}
+<script>
+    $(window).on("load", function () {
+        $("#myModal").modal("show");
+    });
+</script>
+{% endblock %}
+
