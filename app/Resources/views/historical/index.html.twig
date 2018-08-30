@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/dataTables/jquery.dataTables.min.css') }}"/>
+{% endblock %}
+
+{% block body %}
+    <section id="historical" style="padding-top: 50px">
+        <div class="container">
+            <h1 style="padding-bottom: 30px">Historique  des actions</h1>
+            <table id="table_id">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for historical in historicals %}
+                    <tr>
+                        <td>{{ historical.id }}</td>
+                        <td>{{ historical.date|date('d/m/y à H:i:s') }}</td>
+                        <td><strong>{{ historical.action }}</strong></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ path('truncate_history') }}" class="btn btn-primary">vider l'historique</a>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" charset="utf8" src="{{ asset('asset/js/dataTables/jquery.dataTables.min.js') }}"></script>
+    <script>
+        $(document).ready( function () {
+            $('#table_id').DataTable({
+                "order": [[ 0, "desc" ]],
+                language: {
+                    processing:     "Traitement en cours...",
+                    search:         "Rechercher&nbsp;:",
+                    lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                    info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                    infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                    infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                    infoPostFix:    "",
+                    loadingRecords: "Chargement en cours...",
+                    zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                    emptyTable:     "Aucune donnée disponible dans le tableau",
+                    paginate: {
+                        first:      "Premier",
+                        previous:   "Pr&eacute;c&eacute;dent",
+                        next:       "Suivant",
+                        last:       "Dernier"
+                    },
+                    aria: {
+                        sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                        sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                    }
+                }
+            });
+        } );
+    </script>
+{% endblock %}

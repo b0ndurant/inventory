@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/dataTables/jquery.dataTables.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('asset/css/homepage.css') }}">
 {% endblock %}
 
@@ -12,8 +12,9 @@
     <section id="bottle">
         <div class="container">
             <h3>
-                nombre de parfums en stock :{{ perfums|length }} <span style="float: right"><img src="http://www.maxicours.com/img/1/5/7/4/157415.jpg">Pour Ryad ;)</span>
+                nombre de parfums en stock :{{ perfums|length }}
             </h3>
+            <h2 style="text-align: center;padding-top: 30px;padding-bottom: 20px;font-weight: bold">Flacon en stock</h2>
             <table>
                 <thead>
                 <tr>
@@ -26,9 +27,9 @@
                 <tbody>
                 {% for bottle in bottles %}
                     <tr>
-                        {% if bottle.thirtyMl>50 %} <td>{{ bottle.thirtyMl }} </td>{% else %}<td class="blink blink-infinite" style="color: red;font-size: 35px;font-weight: bold">{{ bottle.thirtyMl }}</td>{% endif %}
-                        {% if bottle.fiftyMl>50 %} <td>{{ bottle.fiftyMl }} </td>{% else %}<td class="blink blink-infinite" style="color: red;font-size: 35px;font-weight: bold">{{ bottle.fiftyMl }}</td>{% endif %}
-                        {% if bottle.hundredMl>50 %} <td>{{ bottle.hundredMl }} </td>{% else %}<td class="blink blink-infinite" style="color: red;font-size: 35px;font-weight: bold">{{ bottle.hundredMl }}</td>{% endif %}
+                        {% if bottle.thirtyMl>70 %} <td>{{ bottle.thirtyMl }} </td>{% else %}<td class="blink blink-infinite" style="color: red;font-size: 35px;font-weight: bold">{{ bottle.thirtyMl }}</td>{% endif %}
+                        {% if bottle.fiftyMl>70 %} <td>{{ bottle.fiftyMl }} </td>{% else %}<td class="blink blink-infinite" style="color: red;font-size: 35px;font-weight: bold">{{ bottle.fiftyMl }}</td>{% endif %}
+                        {% if bottle.hundredMl>70 %} <td>{{ bottle.hundredMl }} </td>{% else %}<td class="blink blink-infinite" style="color: red;font-size: 35px;font-weight: bold">{{ bottle.hundredMl }}</td>{% endif %}
                         <td><a href="{{ path('bottle_edit', { 'id': bottle.id }) }}">Modifier</a></td>
                     </tr>
                 {% endfor %}
@@ -38,6 +39,7 @@
     </section>
     <section id="perfum">
         <div class="container">
+            <h2 style="text-align: center;padding-bottom: 20px;font-weight: bold">Parfum en stock</h2>
             <table id="table_id">
                 <thead>
                 <tr>
@@ -58,10 +60,9 @@
             </table>
         </div>
     </section>
-
 {% endblock %}
 {% block javascripts %}
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('asset/js/dataTables/jquery.dataTables.min.js') }}"></script>
     <script>
         $(document).ready( function () {
             $('#table_id').DataTable({

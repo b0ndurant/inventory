@@ -12,55 +12,72 @@
         <tr>
             <th>Nom du parfum</th>
             <th>Parfum avec flacon</th>
-            <th>Recharge</th>
-            <th>Ajout de parfum</th>
+            <th>Recharge (en ml)</th>
+            <th>Ajout de parfum (en ml)</th>
             <th>Quantite Restante</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td><strong>{{ form_widget(edit_form.name) }}</strong></td>
-            <td>
-                <div style="text-align:center">
-                    <input type="text" name="nameThirty" id="incThirty" readonly="true" class="fake">
+            <td style="min-width: 140px;text-align: center">
+                <div>
                     <input type="button" value="30 ml" onClick="thirty(1)">
-                    <input type="text" name="nameFifty" id="incFifty" readonly="true" class="fake">
+                    <input type="text" name="nameThirty" id="incThirty" readonly="true" class="fake">
+                </div>
+                <div>
                     <input type="button" value="50 ml" onClick="fifty(1)">
-                    <input type="text" name="nameHundred" id="incHundred" readonly="true" class="fake">
+                    <input type="text" name="nameFifty" id="incFifty" readonly="true" class="fake">
+                </div>
+                <div>
                     <input type="button" value="100 ml" onClick="hundred(1)">
+                    <input type="text" name="nameHundred" id="incHundred" readonly="true" class="fake">
+
                 </div>
 
             </td>
-            <td><input type="number" name="recharge"></td>
-            <td><input type="number" name="addPerfum"></td>
-            <td><span class="quantity">{{ perfum.quantity }}</span></td>
+            <td><input type="number" name="recharge" style="width: 100%"></td>
+            <td><input type="number" name="addPerfum" style="width: 100%"></td>
+            <td><span class="quantity">{{ perfum.quantity }} ml</span></td>
         </tr>
         </tbody>
     </table>
 
     <div style="text-align: center">
-        <div style="padding-bottom: 10px">
-            <input type="submit" value="Modifier" class="btn btn-primary" />
-        </div>
-        <div>
-            {{ form_start(delete_form) }}
-            <input type="submit" value="Supprimer" class="btn btn-primary">
-            {{ form_end(delete_form) }}
-        </div>
-        <div style="font-size: 15px">
-            <a href="{{ path('homepage') }}">Retouner a la liste</a>
-        </div>
-        {{ form_end(edit_form) }}
+        <input type="submit" value="Modifier" class="btn btn-primary" />
+    </div>
+    {{ form_end(edit_form) }}
+    <div style="text-align: center;padding-top: 10px;padding-bottom: 10px">
+        {{ form_start(delete_form) }}
+        <input type="submit" value="Supprimer" class="btn btn-primary">
+        {{ form_end(delete_form) }}
+    </div>
+    <div style="font-size: 15px;text-align: center">
+        <a href="{{ path('homepage') }}">Retouner a la liste</a>
     </div>
 
 
 
-    {% for message in app.flashes('erreur') %}
+    {% for message in app.flashes('erreur_bottle') %}
         <div class="modal fade" id="myModal" role="dialog">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <p style="color: red"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }}</p>
+                        <p style="color: red;text-align: center"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('erreur_perfum') %}
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p style="color: red;text-align: center"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }}</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -74,7 +91,7 @@
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <p style="color: red"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }}</p>
+                        <p style="color: red;text-align: center"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }}</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
